@@ -10,31 +10,41 @@ class Lead:
 
 
 def classify_lead(lead: Lead) -> dict:
-    """Classify an incoming customer request using simple rules."""
-    message = lead.message.lower()
+    """Classify and validate an incoming customer request."""
+    name = lead.name.strip()
+    message = lead.message.strip()
+    email = lead.email.strip()
+
+    if not name:
+        raise ValueError("Lead name cannot be empty.")
+
+    if not message:
+        raise ValueError("Lead message cannot be empty.")
+
+    message_lower = message.lower()
 
     urgent_words = ["urgent", "asap", "immediately", "acil", "hemen"]
     sales_words = ["price", "pricing", "quote", "buy", "fiyat", "teklif"]
     support_words = ["error", "broken", "problem", "help", "hata", "sorun"]
 
-    if any(word in message for word in urgent_words):
+    if any(word in message_lower for word in urgent_words):
         priority = "high"
     else:
         priority = "normal"
 
-    if any(word in message for word in support_words):
+    if any(word in message_lower for word in support_words):
         category = "support"
-    elif any(word in message for word in sales_words):
+    elif any(word in message_lower for word in sales_words):
         category = "sales"
     else:
         category = "general"
 
     return {
-        "name": lead.name,
-        "email": lead.email,
+        "name": name,
+        "email": email,
         "category": category,
         "priority": priority,
-        "summary": lead.message.strip(),
+        "summary": message,
     }
 
 
