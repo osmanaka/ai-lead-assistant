@@ -1,0 +1,18 @@
+
+[
+  {
+    "name": "Alex Morgan",
+    "email": "alex@example.com",
+    "message": "Urgent: I need a price quote for your automation service."
+  },
+  {
+    "name": "Sam Taylor",
+    "email": "sam@example.com",
+    "message": "I have a problem with my account."
+  },
+  {
+    "name": "Jordan Lee",
+    "email": "jordan@example.com",
+    "message": "Can you tell me more about your company?"
+  }
+]
