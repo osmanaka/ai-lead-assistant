@@ -1,4 +1,4 @@
-
+import argparse
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -82,10 +82,29 @@ def process_leads(input_path: Path, output_path: Path) -> int:
     return len(results)
 
 
+
 def main():
     project_root = Path(__file__).resolve().parent.parent
-    input_path = project_root / "examples" / "leads.json"
-    output_path = project_root / "examples" / "results.json"
+
+    parser = argparse.ArgumentParser(
+        description="Classify customer leads from a JSON file."
+    )
+    parser.add_argument(
+        "--input",
+        type=Path,
+        default=project_root / "examples" / "leads.json",
+        help="Path to the input JSON file.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=project_root / "examples" / "results.json",
+        help="Path to save the classified results.",
+    )
+    args = parser.parse_args()
+
+    input_path = args.input
+    output_path = args.output
 
     try:
         count = process_leads(input_path, output_path)
